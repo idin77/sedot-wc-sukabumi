@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /api/
+Sitemap: https://murah.sedotwcsukabumi.id/sitemap.xml

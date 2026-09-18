@@ -1,0 +1,6 @@
+{
+  "name": "Sedot WC Sukabumi",
+  "description": "Jasa sedot WC, septic tank, dan perawatan saluran mampet profesional di wilayah Sukabumi, Jawa Barat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
