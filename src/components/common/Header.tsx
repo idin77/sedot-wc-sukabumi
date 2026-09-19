@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Moon, Sun, Globe } from 'lucide-react';
+import { Search, Moon, Sun } from 'lucide-react';
 import { BUSINESS_NAME } from '@/src/data/config';
+import { useI18n } from '../../context/I18nContext';
+import { LanguageToggle } from './LanguageToggle';
 
 export const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +15,7 @@ export const Header: React.FC = () => {
     }
     return false;
   });
-  const [language, setLanguage] = useState<'id' | 'en'>('id');
+  const { t } = useI18n();
 
   useEffect(() => {
     if (darkMode) {
@@ -48,18 +50,11 @@ export const Header: React.FC = () => {
               <Search className="w-3 h-3" />
             </button>
           </form>
-          <a href="/layanan" className="hover:text-blue-600 dark:hover:text-blue-400">Layanan</a>
+          <a href="/layanan" className="hover:text-blue-600 dark:hover:text-blue-400">{t('header.services')}</a>
           <a href="/harga" className="hover:text-blue-600 dark:hover:text-blue-400">Harga</a>
           <a href="/area-layanan" className="hover:text-blue-600 dark:hover:text-blue-400">Area</a>
-          <a href="/kontak" className="hover:text-blue-600 dark:hover:text-blue-400">Kontak</a>
-          <button
-            onClick={() => setLanguage(language === 'id' ? 'en' : 'id')}
-            className="flex items-center gap-1 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
-            aria-label="Toggle Language"
-          >
-            <Globe className="w-4 h-4" />
-            <span className="text-xs uppercase">{language}</span>
-          </button>
+          <a href="/kontak" className="hover:text-blue-600 dark:hover:text-blue-400">{t('header.contact')}</a>
+          <LanguageToggle />
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"

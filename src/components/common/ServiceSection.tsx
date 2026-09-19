@@ -13,7 +13,7 @@ export const ServiceSection: React.FC = () => {
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-blue-900 dark:text-blue-300 mb-12">Layanan Kami</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-900 dark:text-blue-300 mb-12">Layanan Sedot WC Terdekat Sukabumi</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;

@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  /* Utilities for printing */
+  .no-print {
+    display: none !important;
+  }
+}

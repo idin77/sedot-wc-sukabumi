@@ -8,9 +8,9 @@ export const WebVitalsOverlay: React.FC = () => {
     // Only run in development
     if (import.meta.env.MODE !== 'development') return;
 
-    if (webVitals.onLCP) webVitals.onLCP((metric) => setMetrics(prev => ({ ...prev, LCP: Number(metric.value.toFixed(2)) })));
-    if (webVitals.onCLS) webVitals.onCLS((metric) => setMetrics(prev => ({ ...prev, CLS: Number(metric.value.toFixed(3)) })));
-    if (webVitals.onFID) webVitals.onFID((metric) => setMetrics(prev => ({ ...prev, FID: Number(metric.value.toFixed(2)) })));
+    if (webVitals.onLCP) webVitals.onLCP((metric: any) => setMetrics(prev => ({ ...prev, LCP: Number(metric.value.toFixed(2)) })));
+    if (webVitals.onCLS) webVitals.onCLS((metric: any) => setMetrics(prev => ({ ...prev, CLS: Number(metric.value.toFixed(3)) })));
+    if (webVitals.onINP) webVitals.onINP((metric: any) => setMetrics(prev => ({ ...prev, FID: Number(metric.value.toFixed(2)) })));
   }, []);
 
   if (import.meta.env.MODE !== 'development') return null;

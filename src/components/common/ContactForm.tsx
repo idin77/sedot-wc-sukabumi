@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Check, Send } from 'lucide-react';
 import { Toast } from './Toast';
 import { BookingCalendar } from './BookingCalendar';
 
@@ -6,6 +8,7 @@ export const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', message: '', serviceType: '', date: '', time: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showToast, setShowToast] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
@@ -20,21 +23,24 @@ export const ContactForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
-      console.log('Form submitted:', formData);
+      setStatus('submitting');
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setStatus('success');
       setShowToast(true);
       setFormData({ name: '', phone: '', message: '', serviceType: '', date: '', time: '' });
+      setTimeout(() => setStatus('idle'), 3000);
     }
   };
 
   return (
     <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
       <div className="max-w-xl mx-auto px-4">
-        <h2 className="text-3xl font-bold center text-blue-900 dark:text-blue-300 mb-8 transition-colors">Hubungi Kami</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-900 dark:text-blue-300 mb-8 transition-colors">Hubungi Kami</h2>
         <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-4 transition-colors">
-            {/* ... form fields ... */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nama</label>
               <input
@@ -70,12 +76,28 @@ export const ContactForm: React.FC = () => {
               />
               {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
             </div>
-            <button
+            <motion.button
               type="submit"
-              className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition"
+              disabled={status !== 'idle'}
+              className="w-full py-2 bg-blue-600 text-white font-semibold rounded-md flex items-center justify-center gap-2 hover:bg-blue-700 transition"
+              whileTap={{ scale: 0.98 }}
             >
-              Kirim Pesan & Jadwalkan
-            </button>
+              <AnimatePresence mode="wait">
+                {status === 'idle' && (
+                  <motion.div key="idle" className="flex items-center gap-2" exit={{ opacity: 0 }}>
+                    <Send className="w-4 h-4" /> Kirim Pesan & Jadwalkan
+                  </motion.div>
+                )}
+                {status === 'submitting' && (
+                  <motion.div key="submitting" className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" exit={{ opacity: 0 }} />
+                )}
+                {status === 'success' && (
+                  <motion.div key="success" initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                    <Check className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
         </form>
         {showToast && (
           <Toast message="Pesan berhasil dikirim & terjadwal!" type="success" onClose={() => setShowToast(false)} />
