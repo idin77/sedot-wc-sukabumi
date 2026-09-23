@@ -26,7 +26,6 @@ import { WorkProcess } from './components/common/WorkProcess';
 import { PricingSection } from './components/common/PricingSection';
 import { ServicePerformanceTracker } from './components/common/ServicePerformanceTracker';
 import { ServiceNewsSection } from './components/common/ServiceNewsSection';
-import { ReferralProgram } from './components/common/ReferralProgram';
 import { ServiceNewsletterSignup } from './components/common/ServiceNewsletterSignup';
 import { TestimonialSection } from './components/common/TestimonialSection';
 import { FAQSection } from './components/common/FAQSection';
@@ -87,7 +86,6 @@ export default function App() {
         <PricingSection />
         <ServicePerformanceTracker />
         <ServiceNewsSection />
-        <ReferralProgram />
         <ServiceNewsletterSignup />
         <Suspense fallback={<div className="py-16 text-center">Memuat Galeri...</div>}>
           <ProjectGallery />

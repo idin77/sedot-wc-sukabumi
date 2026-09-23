@@ -19,6 +19,28 @@ async function startServer() {
   const PORT = 3000;
 
   // API routes
+  app.post("/api/gemini/suggest-reply", async (req, res) => {
+    try {
+      const { keyword } = req.body;
+      if (!keyword) return res.status(400).json({ error: "Keyword is required" });
+
+      const prompt = `Suggest a professional and helpful auto-reply message for a WhatsApp bot for a "Sedot WC" (septic tank service) business based on the user-provided keyword: "${keyword}".
+      
+      The reply should be polite, concise, and helpful.
+      `;
+
+      const response = await ai.models.generateContent({
+        model: "gemini-3.8-flash",
+        contents: prompt,
+      });
+
+      res.json({ suggestion: response.text });
+    } catch (error) {
+      console.error('Error suggesting reply:', error);
+      res.status(500).json({ error: 'Failed to suggest reply' });
+    }
+  });
+
   app.post("/api/optimize-content", async (req, res) => {
     try {
       const { content } = req.body;
